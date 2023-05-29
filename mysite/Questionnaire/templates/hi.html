@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+<head>
+    <style>
+        .btn-group button {
+          background-color: #04AA6D;
+          border: 1px solid green;
+          color: white;
+          padding: 10px 24px;
+          cursor: pointer;
+          float: left;
+        }
+
+        .btn-group:after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+          border-right: none;
+        }
+
+        .btn-group button:hover {
+          background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+            <h1>{{ question.question_text }}</h1>
+            <div class="btn-group">
+                {% for answer in question.answer_set.all %}
+                    <button name="{{ question.pk }}" value="{{ answer.answer_text }}">{{ answer.answer_text }}</button>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Submit Quiz">
+        <h1>Your score is {{ score }}/{{ questions.count }}</h1>
+    </form>
+
+{% endblock %}
+
+</body>
+</html>

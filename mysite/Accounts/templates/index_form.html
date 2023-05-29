@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+   <h4> Therapist Registrations</h4>
+   <form method="post" >
+     {% csrf_token %}
+     {{ form.as_p }}
+
+     <button> Save </button>
+   </form>
+{% endblock %}
